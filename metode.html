@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211d1a">
+  <title>Meja Praktik Sandi | Kuis Hantu Pukul 02.14</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="cipher.js"></script>
+  <script src="metode.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" aria-label="Kembali ke beranda">Kuis Hantu Pukul 02.14</a>
+    <nav aria-label="Navigasi utama">
+      <a href="index.html">Beranda</a>
+      <a href="metode.html" aria-current="page">Meja Praktik</a>
+      <a href="game.html">Cerita</a>
+      <a href="guess.html">Guess Message</a>
+    </nav>
+  </header>
+  <main class="page">
+    <section class="hero panel" aria-labelledby="page-title">
+      <p class="eyebrow">Catatan belajar, pukul 02.14</p>
+      <h1 id="page-title">Meja praktik sandi</h1>
+      <p>Ubah masukan dan lihat perubahan hasil serta langkahnya. Semua alat berjalan di halaman ini, tanpa mengirim teks ke server.</p>
+    </section>
+
+    <section class="lab" aria-labelledby="classics-title">
+      <h2 id="classics-title">Sandi yang bisa dihitung</h2>
+      <p>Enkripsi mengubah pesan memakai aturan dan kunci; dekripsi membalik prosesnya dengan kunci yang sesuai. Contoh di bawah menghitung hasil sungguhan.</p>
+      <article class="method panel" id="caesar">
+        <h3>Caesar, roda huruf</h3>
+        <p>Setiap huruf berpindah sejumlah langkah tetap. Untuk contoh cerita, geser 4 mengubah <code>KEPANTRYDULU</code> menjadi <code>OITERXVCHYPY</code>.</p>
+        <div class="split">
+          <label>Pesan <input id="caesar-text" value="KEPANTRYDULU" autocomplete="off"></label>
+          <label>Geser (0–25) <input id="caesar-shift" type="number" min="0" max="25" value="4"></label>
+          <label>Arah <select id="caesar-mode"><option value="encrypt">Enkripsi</option><option value="decrypt">Dekripsi</option></select></label>
+        </div>
+        <div class="result" id="caesar-result" aria-live="polite"></div>
+      </article>
+
+      <article class="method panel" id="scytale">
+        <h3>Scytale, lilit pada batang</h3>
+        <p>Huruf ditulis melintasi baris, lalu dibaca menuruni kolom. Spasi di hasil hanya membantu membaca.</p>
+        <div class="split">
+          <label>Pesan atau ciphertext <input id="scytale-text" value="KELABKRIPTO" autocomplete="off"></label>
+          <label>Jumlah kolom <input id="scytale-columns" type="number" min="2" max="12" value="4"></label>
+          <label>Arah <select id="scytale-mode"><option value="encrypt">Enkripsi</option><option value="decrypt">Dekripsi</option></select></label>
+        </div>
+        <div class="result" id="scytale-result" aria-live="polite"></div>
+      </article>
+
+      <article class="method panel" id="vigenere">
+        <h3>Vigenère, kunci berulang</h3>
+        <p>Huruf kunci disejajarkan dengan pesan; tiap huruf kunci menentukan besar pergeseran. Contoh cerita memakai kunci MODUS.</p>
+        <div class="split">
+          <label>Pesan atau ciphertext <input id="vigenere-text" value="CERMINTOILETBERBISIK" autocomplete="off"></label>
+          <label>Kunci <input id="vigenere-key" value="MODUS" autocomplete="off"></label>
+          <label>Arah <select id="vigenere-mode"><option value="encrypt">Enkripsi</option><option value="decrypt">Dekripsi</option></select></label>
+        </div>
+        <div class="result" id="vigenere-result" aria-live="polite"></div>
+      </article>
+
+      <article class="method panel" id="rail-fence">
+        <h3>Rail Fence, zigzag</h3>
+        <p>Huruf hanya berpindah tempat, lalu dibaca per baris. Ciphertext cerita Pantry memakai 6 rail.</p>
+        <div class="split">
+          <label>Pesan atau ciphertext <input id="rail-text" value="LEMBARKETIGADIRUANGBACA" autocomplete="off"></label>
+          <label>Jumlah rail <input id="rail-count" type="number" min="2" max="10" value="6"></label>
+          <label>Arah <select id="rail-mode"><option value="encrypt">Enkripsi</option><option value="decrypt">Dekripsi</option></select></label>
+        </div>
+        <div class="result" id="rail-result" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <section class="lab" aria-labelledby="symbols-title">
+      <h2 id="symbols-title">Simbol dan jejak</h2>
+      <article class="method panel" id="pigpen">
+        <h3>Pigpen, legenda kotak dan X</h3>
+        <p>Huruf diganti bentuk petak atau sudut. Titik membedakan huruf pada bentuk yang sama. Pemetaan mengikuti legenda materi kuliah.</p>
+        <div class="split">
+          <label>Teks untuk dienkripsi <input id="pigpen-text" value="KEMBALI KE KELAS TUJUH SEBELAS A" autocomplete="off"></label>
+          <label>Arah <select id="pigpen-mode"><option value="encode">Teks ke simbol</option><option value="decode">Simbol ke teks</option></select></label>
+        </div>
+        <div class="result" id="pigpen-result" aria-live="polite"></div>
+        <div class="scrap" id="pigpen-legend" aria-label="Legenda Pigpen"></div>
+        <p>Untuk dekripsi, pilih glyph dari legenda. Setiap pilihan menambah satu simbol ke urutan yang akan diterjemahkan.</p>
+        <div class="scrap" id="pigpen-picker" aria-label="Pilih simbol Pigpen untuk dekripsi"></div>
+        <button class="button" type="button" id="pigpen-clear">Kosongkan urutan simbol</button>
+        <button class="button" type="button" id="pigpen-space">Sisipkan batas kata</button>
+        <p id="pigpen-sequence" aria-live="polite">Belum ada simbol dipilih.</p>
+        <button class="button" type="button" id="pigpen-decode">Terjemahkan simbol pilihan</button>
+      </article>
+      <article class="method panel" id="steganography">
+        <h3>Steganografi teks, pesan di awal setiap kata</h3>
+        <p>Acrostic menyembunyikan petunjuk dengan mengambil huruf pertama setiap kata. Ini menyamarkan keberadaan pesan, bukan mengenkripsi isi.</p>
+        <label>Catatan
+          <textarea id="stego-text" rows="3">Kopi Enak</textarea>
+        </label>
+        <div class="result" id="stego-result" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <section class="lab" aria-labelledby="pair-title">
+      <h2 id="pair-title">Sandi pasangan huruf</h2>
+      <article class="method panel" id="playfair">
+        <h3>Playfair, kisi dan pasangan</h3>
+        <p>Gabungkan I/J dalam satu sel. Enkripsi setiap pasangan dengan aturan baris, kolom, atau persegi panjang. Kunci cerita: MEDIAN.</p>
+        <div class="split">
+          <label>Pesan atau ciphertext <input id="playfair-text" value="STUDIOTEMPATSOALKETIGA" autocomplete="off"></label>
+          <label>Kunci <input id="playfair-key" value="MEDIAN" autocomplete="off"></label>
+          <label>Arah <select id="playfair-mode"><option value="encrypt">Enkripsi</option><option value="decrypt">Dekripsi</option></select></label>
+        </div>
+        <div class="result" id="playfair-result" aria-live="polite"></div>
+        <div class="scrap" id="playfair-grid" aria-label="Kisi Playfair"></div>
+      </article>
+      <article class="method panel" id="hill">
+        <h3>Hill 2×2, perkalian modulo 26</h3>
+        <p>Petakan A=0 sampai Z=25, proses dua huruf bersama, lalu ambil hasil modulo 26. Matriks cerita: [[3,3],[2,5]]. Enkripsi memerlukan matriks yang bisa diinvers modulo 26.</p>
+        <div class="split">
+          <label>Pesan atau ciphertext <input id="hill-text" value="ABSENX" autocomplete="off"></label>
+          <fieldset><legend>Matriks 2×2</legend>
+            <label>Baris 1 kolom 1 <input id="hill-a" type="number" value="3"></label>
+            <label>Baris 1 kolom 2 <input id="hill-b" type="number" value="3"></label>
+            <label>Baris 2 kolom 1 <input id="hill-c" type="number" value="2"></label>
+            <label>Baris 2 kolom 2 <input id="hill-d" type="number" value="5"></label>
+          </fieldset>
+          <label>Arah <select id="hill-mode"><option value="encrypt">Enkripsi</option><option value="decrypt">Dekripsi</option></select></label>
+        </div>
+        <div class="result" id="hill-result" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <section class="lab" aria-labelledby="hash-title">
+      <h2 id="hash-title">Hash bukan sandi balik</h2>
+      <p>Hash satu arah menghasilkan ringkasan untuk dibandingkan; encoding mengubah representasi data tanpa kunci rahasia; enkripsi mengubah pesan agar dapat dipulihkan dengan kunci. Contoh hash ini sengaja hanya menunjukkan konsep verifikasi, bukan menghitung nilai hash.</p>
+      <p class="status"><strong>Simulasi konsep, bukan hasil hash asli</strong></p>
+      <div class="method panel" id="hash-lab">
+        <label>Kalimat yang diperiksa <input id="hash-input" value="pintu terbuka" autocomplete="off"></label>
+        <div class="split">
+          <label>Nilai pembanding <input id="hash-expected" value="pintu terbuka" autocomplete="off"></label>
+          <label>Salt yang diuji <input id="hash-salt" value="kertas-kuliah" autocomplete="off"></label>
+        </div>
+        <p>Salt acuan: <code id="hash-reference-salt">kertas-kuliah</code>. Hasil cocok hanya jika teks dan salt sama dengan acuan. Salt hanya dibandingkan secara konseptual; tidak ada digest yang dihitung.</p>
+        <div class="result" id="hash-result" aria-live="polite"></div>
+      </div>
+      <div class="method panel" id="bcrypt">
+        <h3>bcrypt</h3>
+        <p>Algoritma hash password dengan salt dan biaya komputasi yang dapat diatur. Di sini tidak ada komputasi bcrypt.</p>
+        <label>Kata sandi contoh <input class="hash-input" value="kunci-kamar" autocomplete="off"></label>
+        <label>Kata sandi untuk dicocokkan <input class="hash-check" value="kunci-kamar" autocomplete="off"></label>
+        <label>Salt yang diuji <input class="hash-salt" value="salt-bcrypt" autocomplete="off"></label>
+        <p>Salt acuan: <code class="hash-reference-salt">salt-bcrypt</code>.</p>
+        <div class="result hash-result" aria-live="polite"></div>
+      </div>
+      <div class="method panel" id="md5">
+        <h3>MD5</h3>
+        <p><strong>MD5 tidak aman untuk menyimpan password.</strong> Ia terlalu cepat untuk menahan tebakan password modern. Salt tidak memperbaiki kelemahan desain MD5.</p>
+        <label>Teks contoh <input class="hash-input" value="catatan-pagi" autocomplete="off"></label>
+        <label>Teks untuk dicocokkan <input class="hash-check" value="catatan-pagi" autocomplete="off"></label>
+        <label>Salt yang diuji <input class="hash-salt" value="salt-md5" autocomplete="off"></label>
+        <p>Salt acuan: <code class="hash-reference-salt">salt-md5</code>.</p>
+        <div class="result hash-result" aria-live="polite"></div>
+      </div>
+      <div class="method panel" id="argon2">
+        <h3>Argon2</h3>
+        <p>Fungsi hash password yang dirancang dapat memakai sumber daya memori sebagai salah satu biaya. Konfigurasi dan implementasi nyata harus menggunakan pustaka yang sesuai.</p>
+        <label>Kata sandi contoh <input class="hash-input" value="absen-0214" autocomplete="off"></label>
+        <label>Kata sandi untuk dicocokkan <input class="hash-check" value="absen-0214" autocomplete="off"></label>
+        <label>Salt yang diuji <input class="hash-salt" value="salt-argon2" autocomplete="off"></label>
+        <p>Salt acuan: <code class="hash-reference-salt">salt-argon2</code>.</p>
+        <div class="result hash-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="lab" aria-labelledby="keys-title">
+      <h2 id="keys-title">Dua cara memakai kunci</h2>
+      <article class="method panel" id="key-flow">
+        <h3>Simetris dan asimetris</h3>
+        <p>Sandi simetris memakai kunci yang sama untuk mengunci dan membuka pesan. Pada skema asimetris, kunci publik mengenkripsi dan kunci privat pasangan membukanya. Alur berikut konseptual, bukan enkripsi sungguhan.</p>
+        <label>Pesan contoh <input id="key-message" value="CATATAN UCOk" autocomplete="off"></label>
+        <div class="actions">
+          <button class="button" type="button" id="symmetric-button">Alirkan dengan kunci bersama</button>
+          <button class="button" type="button" id="asymmetric-button">Alirkan dengan pasangan kunci</button>
+        </div>
+        <div class="result" id="key-result" aria-live="polite">Pilih satu alur untuk melihat siapa memakai kunci.</div>
+      </article>
+      <article class="method panel" id="enigma">
+        <h3>Enigma, alur rotor</h3>
+        <p>Rotor mengganti pemetaan huruf setiap kali tombol ditekan. Ini diagram konsep alur, bukan simulasi mesin Enigma atau hasil enkripsi.</p>
+        <div class="split">
+          <label>Huruf contoh <input id="enigma-letter" value="A" maxlength="1" autocomplete="off"></label>
+          <label>Putaran rotor 1 <input id="rotor-one" type="number" min="0" max="25" value="1"></label>
+          <label>Putaran rotor 2 <input id="rotor-two" type="number" min="0" max="25" value="4"></label>
+        </div>
+        <div class="result" id="enigma-result" aria-live="polite"></div>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Meja Praktik · Kuis Hantu Pukul 02.14</p><a href="index.html">Kembali ke papan pengumuman</a></footer>
+</body>
+</html>

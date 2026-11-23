@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#201d1a">
+  <title>Guess Message | Kuis Hantu Pukul 02.14</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="cipher.js"></script>
+  <script src="guess.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html">Kuis Hantu Pukul 02.14</a>
+    <nav aria-label="Navigasi utama">
+      <a href="index.html">Beranda</a>
+      <a href="metode.html">Pelajari Metode</a>
+    </nav>
+  </header>
+  <main class="page">
+    <section class="panel guess-panel" aria-labelledby="page-title">
+      <p class="status">Ronde untuk dua kelompok</p>
+      <h1 id="page-title">Guess Message</h1>
+      <p>Pesan disusun dengan Rail Fence, 3 rail. Baca ciphertext, lalu host memilih kelompok yang menyampaikan tebakan.</p>
+      <p class="scrap" aria-label="Pesan tersandi">KPRLL OIATY IAGAI PNHNG</p>
+      <p class="status" id="timer" role="timer" aria-live="off">Waktu: 60 detik</p>
+      <form id="guess-form" class="lab">
+        <fieldset>
+          <legend>Kelompok yang sedang menebak</legend>
+          <label><input type="radio" name="team" value="A" checked> Kelompok A</label>
+          <label><input type="radio" name="team" value="B"> Kelompok B</label>
+        </fieldset>
+        <label for="guess-input">Tebakan lisan</label>
+        <input id="guess-input" name="guess" type="text" autocomplete="off" maxlength="80" aria-describedby="form-status" disabled>
+        <div class="actions">
+          <button class="button" id="start-button" type="button">Mulai Ronde</button>
+          <button class="button" id="submit-button" type="submit" disabled>Kirim Tebakan</button>
+          <button class="button" id="retry-button" type="button" disabled>Ulangi Ronde</button>
+        </div>
+        <p id="form-status" class="status" role="status" aria-live="polite">Mulai ronde untuk mengaktifkan tebakan.</p>
+      </form>
+    </section>
+  </main>
+  <footer class="site-footer"><p><a href="index.html">Kembali ke Beranda</a></p></footer>
+</body>
+</html>
